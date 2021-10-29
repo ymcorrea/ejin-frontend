@@ -18,9 +18,14 @@ async function run() {
         await client.connect();
         const database = client.db("travel_agency");
         const placeCollection = database.collection("destination");
+        const serviceCollection = database.collection("resort");
 
         app.get('/destination/', async (req, res) => {
             const cursor = await placeCollection.find({}).toArray();
+            res.send(cursor);
+        })
+        app.get('/services/', async (req, res) => {
+            const cursor = await serviceCollection.find({}).toArray();
             res.send(cursor);
         })
     }
