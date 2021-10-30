@@ -49,7 +49,6 @@ async function run() {
             const quary = { _id: ObjectId(id) };
             const result = await bookCollection.deleteOne(quary);
             console.log(result);
-             
         })
 
         // Single Package API Post 
