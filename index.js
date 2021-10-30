@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const ObjectId = require('mongodb').ObjectId;
 const app = express();
 const cors = require('cors');
 const port = process.env.PORT || 5000;
@@ -20,13 +21,25 @@ async function run() {
         const placeCollection = database.collection("destination");
         const serviceCollection = database.collection("resort");
 
+        // Place Collection API
         app.get('/destination/', async (req, res) => {
             const cursor = await placeCollection.find({}).toArray();
             res.send(cursor);
         })
-        app.get('/services/', async (req, res) => {
+
+        // Package Collection API
+        app.get('/package/', async (req, res) => {
             const cursor = await serviceCollection.find({}).toArray();
             res.send(cursor);
+        })
+
+        // Single Package API
+        app.get('/package/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const package = await serviceCollection.findOne(query);
+            res.send(package);
+
         })
     }
     finally {
