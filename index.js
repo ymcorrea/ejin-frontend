@@ -20,6 +20,7 @@ async function run() {
         const database = client.db("travel_agency");
         const placeCollection = database.collection("destination");
         const serviceCollection = database.collection("resort");
+        const bookCollection = database.collection("book");
 
         // Place Collection API
         app.get('/destination/', async (req, res) => {
@@ -33,13 +34,30 @@ async function run() {
             res.send(cursor);
         })
 
-        // Single Package API
+        // Single Package API get 
         app.get('/package/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const package = await serviceCollection.findOne(query);
             res.send(package);
 
+        })
+
+        // Single Package API Post 
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            const result = await bookCollection.insertOne(user);
+            res.json(result);
+        })
+
+        // Get all booking from the database
+        app.get('/booking/', async (req, res) => {
+            const userEmail = req.query.email;
+            console.log(userEmail);
+            const quer = ({ Email: userEmail });
+            result = await bookCollection.find(quer).toArray();
+            console.log(result);
+            res.send(result);
         })
     }
     finally {
