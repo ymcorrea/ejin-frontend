@@ -40,7 +40,15 @@ async function run() {
             const query = { _id: ObjectId(id) }
             const package = await serviceCollection.findOne(query);
             res.send(package);
+        })
 
+        // Single Package API Delete 
+        app.delete('/booking/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log(id);
+            const quary = { _id: ObjectId(id) };
+            const result = await bookCollection.deleteOne(quary);
+            console.log(result);
         })
 
         // Single Package API Post 
