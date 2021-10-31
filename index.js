@@ -57,43 +57,49 @@ async function run() {
         })
 
         // Update booking status
-        app.put('booking/:id', async (req, res) => {
+        app.put('/booking/:id', async (req, res) => {
             const id = req.params.id;
-            const quary = { _id: ObjectId(id)}
-            const result = await  bookCollection.updateOne(quary, {status: 'approved'})
-            console.log(id);
-            res.json(result);
-        })
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    status: "approved"
+                },
+            };
+            const result = await bookCollection.updateOne(filter, updateDoc, options);
+        // console.log(id);
+        res.json(result);
+    })
 
-        // Single Package API Post 
-        app.post('/users', async (req, res) => {
-            const user = req.body;
-            const result = await bookCollection.insertOne(user);
-            res.json(result);
-        })
+    // Single Package API Post 
+    app.post('/users', async (req, res) => {
+        const user = req.body;
+        const result = await bookCollection.insertOne(user);
+        res.json(result);
+    })
 
-        // Add new Package API Post 
-        app.post('/package', async (req, res) => {
-            const package = req.body;
-            const result = await serviceCollection.insertOne(package);
-            res.json(result);
-        })
+    // Add new Package API Post 
+    app.post('/package', async (req, res) => {
+        const package = req.body;
+        const result = await serviceCollection.insertOne(package);
+        res.json(result);
+    })
 
-        // Get all booking from the database
-        app.get('/booking/', async (req, res) => {
-            const userEmail = req.query.email;
-            console.log(userEmail);
-            const quer = ({ Email: userEmail });
-            result = await bookCollection.find(quer).toArray();
-            console.log(result);
-            res.send(result);
-        })
+    // Get all booking from the database
+    app.get('/booking/', async (req, res) => {
+        const userEmail = req.query.email;
+        console.log(userEmail);
+        const quer = ({ Email: userEmail });
+        result = await bookCollection.find(quer).toArray();
+        console.log(result);
+        res.send(result);
+    })
 
 
-    }
+}
     finally {
-        // await client.close();
-    }
+    // await client.close();
+}
 }
 run().catch(console.dir);
 
