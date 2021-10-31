@@ -33,13 +33,14 @@ async function run() {
             const cursor = await serviceCollection.find({}).toArray();
             res.send(cursor);
         })
-        // Package Collection API
+
+        // All booking Package get Collection API
         app.get('/allbooking/', async (req, res) => {
             const booking = await bookCollection.find({}).toArray();
             res.send(booking);
         })
 
-        // Single Package API get 
+        // Single Package get API 
         app.get('/package/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
@@ -47,13 +48,21 @@ async function run() {
             res.send(package);
         })
 
-        // Single Package API Delete 
+        // Single booking Package API Delete 
         app.delete('/booking/:id', async (req, res) => {
             const id = req.params.id;
-            console.log(id);
             const quary = { _id: ObjectId(id) };
             const result = await bookCollection.deleteOne(quary);
             console.log(result);
+        })
+
+        // Update booking status
+        app.put('booking/:id', async (req, res) => {
+            const id = req.params.id;
+            const quary = { _id: ObjectId(id)}
+            const result = await  bookCollection.updateOne(quary, {status: 'approved'})
+            console.log(id);
+            res.json(result);
         })
 
         // Single Package API Post 
@@ -79,6 +88,8 @@ async function run() {
             console.log(result);
             res.send(result);
         })
+
+
     }
     finally {
         // await client.close();
