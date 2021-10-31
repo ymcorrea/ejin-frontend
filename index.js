@@ -63,6 +63,13 @@ async function run() {
             res.json(result);
         })
 
+        // Add new Package API Post 
+        app.post('/package', async (req, res) => {
+            const package = req.body;
+            const result = await serviceCollection.insertOne(package);
+            res.json(result);
+        })
+
         // Get all booking from the database
         app.get('/booking/', async (req, res) => {
             const userEmail = req.query.email;
