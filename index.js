@@ -33,6 +33,11 @@ async function run() {
             const cursor = await serviceCollection.find({}).toArray();
             res.send(cursor);
         })
+        // Package Collection API
+        app.get('/allbooking/', async (req, res) => {
+            const booking = await bookCollection.find({}).toArray();
+            res.send(booking);
+        })
 
         // Single Package API get 
         app.get('/package/:id', async (req, res) => {
