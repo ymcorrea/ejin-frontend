@@ -22,12 +22,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         // Connect client and make database and connection
-        await client.connect(err => {
-    if(err){ console.error(err); return false;}
-    // connection to mongo is successful, listen for requests
-    app.listen(PORT, () => {
-        console.log("listening for requests");
-    });
+        await client.connect();
         const database = client.db("travel_agency");
         const placeCollection = database.collection("destination");
         const serviceCollection = database.collection("resort");
@@ -116,4 +111,4 @@ async function run() {
 // Call run function
 run().catch(console.dir);
 
-
+app.listen(3000)
