@@ -13,7 +13,7 @@ app.use(express.json());
 // pass: gKMsQqXaDYVq0Rqq
 
 // Mongodb uri with username and password
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ha2x2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0.ha2x2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 // Create mongodb client
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
