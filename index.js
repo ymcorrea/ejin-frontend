@@ -3,7 +3,7 @@ const { MongoClient } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
 const app = express();
 const cors = require('cors');
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 require('dotenv').config()
 
 // Connect cors and express json
@@ -22,7 +22,12 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         // Connect client and make database and connection
-        await client.connect();
+        await client.connect(err => {
+    if(err){ console.error(err); return false;}
+    // connection to mongo is successful, listen for requests
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    });
         const database = client.db("travel_agency");
         const placeCollection = database.collection("destination");
         const serviceCollection = database.collection("resort");
@@ -112,7 +117,3 @@ async function run() {
 run().catch(console.dir);
 
 
-// Set app listen running port
-app.listen(port, () => {
-    console.log("running " + port)
-})
