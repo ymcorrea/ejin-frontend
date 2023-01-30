@@ -3,7 +3,7 @@ const { MongoClient } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
 const app = express();
 const cors = require('cors');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 require('dotenv').config()
 
 // Connect cors and express json
@@ -13,7 +13,7 @@ app.use(express.json());
 // pass: gKMsQqXaDYVq0Rqq
 
 // Mongodb uri with username and password
-const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0.ha2x2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0.ha2x2.mongodb.net/travel_agency?retryWrites=true&w=majority`;
 
 // Create mongodb client
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -24,34 +24,14 @@ async function run() {
         // Connect client and make database and connection
         await client.connect();
         const database = client.db("travel_agency");
-        const placeCollection = database.collection("destination");
-        const serviceCollection = database.collection("resort");
+        const placeCollection = database.collection("destinations");
+        const serviceCollection = database.collection("packages");
         const bookCollection = database.collection("book");
-
-        // Get all Place Collection API
-        app.get('/destination/', async (req, res) => {
-            const cursor = await placeCollection.find({}).toArray();
-            res.send(cursor);
-        })
-
-        // Get all Package Collection API
-        app.get('/package/', async (req, res) => {
-            const cursor = await serviceCollection.find({}).toArray();
-            res.send(cursor);
-        })
 
         // Get All booking Package Collection API
         app.get('/allbooking/', async (req, res) => {
             const booking = await bookCollection.find({}).toArray();
             res.send(booking);
-        })
-
-        // Get a Single Package API by id
-        app.get('/package/:id', async (req, res) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId(id) }
-            const package = await serviceCollection.findOne(query);
-            res.send(package);
         })
 
         // Delete a Single booking Package API 
@@ -84,12 +64,6 @@ async function run() {
             res.json(result);
         })
 
-        // Add new Package API Post 
-        app.post('/package', async (req, res) => {
-            const package = req.body;
-            const result = await serviceCollection.insertOne(package);
-            res.json(result);
-        })
 
         // Get all booking from the database
         app.get('/booking/', async (req, res) => {
