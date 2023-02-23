@@ -1,10 +1,17 @@
 {
-  "version": 2,
-  "builds": [{ "src": "server.js", "use": "@vercel/node" }],
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "/server.js"
     }
-  ]
+  ],
+  "env": {
+    "DB_URL": "mongodb+srv://final_proj:yiCEzimhGU8CnaQK@cluster0.ha2x2.mongodb.net/travel_agency?retryWrites=true&w=majority"
+  }
 }
