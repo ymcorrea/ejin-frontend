@@ -1,15 +1,16 @@
 const express = require('express');
+const router = express.Router();
+const { getDb } = require('../config/dbConnect');
 const { getAllPackageCtlr, getSinglePackageCtlr, createPackageCtlr } = require('../controller/packageController');
+const ObjectId = require('mongodb').ObjectId;
 
+// Get all Package Collection API
+router.get('/', getAllPackageCtlr);
 
-const packageRouter = express.Router()
+// Get a Single Package API by id
+router.get('/:id', getSinglePackageCtlr);
 
-// Admin Register
-packageRouter.get('/', getAllPackageCtlr)
+// Add new Package API Post 
+router.post('/', createPackageCtlr);
 
-packageRouter.get('/:id/', getSinglePackageCtlr)
-
-packageRouter.post('/', createPackageCtlr)
-
-
-module.exports = packageRouter;
+module.exports = router;

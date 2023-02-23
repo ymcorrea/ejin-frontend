@@ -1,12 +1,14 @@
 const AsyncHandler = require('express-async-handler');
-const Destination = require('../model/Destination');
+const { getDb } = require('../config/dbConnect');
+
 
 // @desc Get All Destination
 // @route GET /destination/
 // @access private
 
 exports.getAllDestinationCtlr = AsyncHandler(async (req, res) => {
-  const destinations = await Destination.find()
+  const db = getDb();
+  const destinations = await db.collection("destination").find({}).toArray();
 
   res.status(200).json({
     status: "Success",

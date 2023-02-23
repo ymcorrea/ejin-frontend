@@ -1,19 +1,24 @@
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
 const globalErrorHandler = require('../middlewares/globalErrorHandler');
 const notFoundErrorHandler = require('../middlewares/notFoundHandler');
-const destinationRouter = require('../routes/destinationRoute');
-const packageRouter = require('../routes/packageRoute');
 const app = express();
 
 // === Middlewares ===
 app.use(morgan('dev'));
+app.use(cors());
 app.use(express.json());
 
-// === Routes ===
-app.use('/destination/', destinationRouter)
+// Import routes
+const destinationRoutes = require('../routes/destinationRoute');
+const packageRoutes = require('../routes/packageRoute');
+const bookingRoutes = require('../routes/booking');
 
-app.use('/packages/', packageRouter)
+// Register routes
+app.use('/destination', destinationRoutes);
+app.use('/package', packageRoutes);
+app.use('/booking', bookingRoutes);
 
 // === Error Middlewares ===
 app.use(notFoundErrorHandler)

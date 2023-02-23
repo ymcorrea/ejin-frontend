@@ -1,13 +1,29 @@
-const mongoose = require('mongoose');
-mongoose.set('strictQuery', true);
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
+
+
+let _db;
 
 const dbConnect = async () => {
+  const client = new MongoClient(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+
   try {
-    await mongoose.connect(process.env.DB_URL);
+    // Connect client and make database and connection
+    await client.connect();
+    console.log('Connected to MongoDB successfully!');
+    _db = client.db("travel_agency");
   } catch (error) {
-    console.log("Database connection error: " + error.message);
+    console.error('Error connecting to MongoDB:', error);
+    process.exit(1);
   }
 };
 
+const getDb = () => {
+  if (_db) {
+    return _db;
+  }
+  throw new Error('Database connection not established yet.');
+};
 
-dbConnect();
+module.exports = { dbConnect, getDb };
+

@@ -1,12 +1,15 @@
 const AsyncHandler = require('express-async-handler');
-const Packages = require('../model/Packages');
+const { getDb } = require('../config/dbConnect');
+const ObjectId = require('mongodb').ObjectId;
+
 
 // @desc Get All Packages
 // @route GET /package/
 // @access public
 
 exports.getAllPackageCtlr = AsyncHandler(async (req, res) => {
-  const packages = await Packages.find()
+  const db = getDb();
+  const packages = await db.collection("resort").find({}).toArray();
 
   res.status(200).json({
     status: "Success",
@@ -19,10 +22,11 @@ exports.getAllPackageCtlr = AsyncHandler(async (req, res) => {
 // @route GET /package/:id
 // @access private
 exports.getSinglePackageCtlr = AsyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const package = await Packages.findById(id).select(
-    ' -createdAt -updatedAt -__v'
-  );
+  const id = req.params.id;
+  const query = { _id: ObjectId(id) };
+  const db = getDb();
+  const package = await db.collection("resort").findOne(query);
+
   if (!package) {
     throw new Error("Package not found by this ID!")
   } {
@@ -38,7 +42,8 @@ exports.getSinglePackageCtlr = AsyncHandler(async (req, res) => {
 // @access private
 exports.createPackageCtlr = AsyncHandler(async (req, res) => {
   const package = req.body;
-  const newPackage = await Admin.create(package);
+  const db = getDb();
+  const newPackage = await db.collection("resort").insertOne(package);
 
   return res.status(201).json({
     status: 'success',
