@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 
 // Import routes
-const destinationRoutes = require('../routes/destinationRoute');
-const packageRoutes = require('../routes/packageRoute');
-const bookingRoutes = require('../routes/booking');
+const destinationRoutes = require('../routes/destination.routes');
+const packageRoutes = require('../routes/package.routes');
+const bookingRoutes = require('../routes/booking.routes');
 
 // Register routes
 app.use('/destination', destinationRoutes);
