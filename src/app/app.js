@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const globalErrorHandler = require('../middlewares/globalErrorHandler');
-const notFoundErrorHandler = require('../middlewares/notFoundHandler');
+const globalErrorHandler = require('../middlewares/global-error-handler');
+const notFoundErrorHandler = require('../middlewares/not-found-handler');
 const app = express();
 
 // === Middlewares ===
