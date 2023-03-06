@@ -5,7 +5,12 @@ require('dotenv').config();
 let _db;
 
 const dbConnect = async () => {
-  const client = new MongoClient(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(
+    process.env.DB_URL,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
 
   try {
     // Connect client and make database and connection
