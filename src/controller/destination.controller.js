@@ -1,5 +1,5 @@
 const AsyncHandler = require('express-async-handler');
-const { getDb } = require('../config/dbConnect');
+const { getDb } = require('../../config/dbConnect');
 
 
 // @desc Get All Destination

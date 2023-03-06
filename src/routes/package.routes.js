@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getDb } = require('../config/dbConnect');
+const { getDb } = require('../../config/dbConnect');
 const { getAllPackageCtlr, getSinglePackageCtlr, createPackageCtlr } = require('../controller/package.controller');
 const ObjectId = require('mongodb').ObjectId;
 

@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongodb');
-const { getDb } = require('../config/dbConnect');
+const { getDb } = require('../../config/dbConnect');
 
 exports.getAllBookings = async (req, res) => {
   const db = getDb();
