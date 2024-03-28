@@ -5,7 +5,7 @@ const { getDb } = require('../../config/db.config');
 // @desc Get All Destination
 // @route GET /destination/
 // @access private
-
+ 
 exports.getAllDestinationCtlr = AsyncHandler(async (req, res) => {
   const db = getDb();
   const destinations = await db.collection("destination").find({}).toArray();
