@@ -9,6 +9,6 @@ const globalErrorHandler = (err, req, res, next) => {
     message,
     stack
   })
-}
+} 
 
 module.exports = globalErrorHandler;

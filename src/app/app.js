@@ -8,7 +8,7 @@ const app = express();
 // === Middlewares ===
 app.use(morgan('dev'));
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); 
 
 // Import routes
 const destinationRoutes = require('../routes/destination.routes');

@@ -5,4 +5,4 @@ const { getAllDestinationCtlr } = require('../controller/destination.controller'
 // Get all Place Collection API
 router.get('/', getAllDestinationCtlr);
 
-module.exports = router;
+module.exports = router; 

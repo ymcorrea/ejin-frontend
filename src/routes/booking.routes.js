@@ -8,4 +8,4 @@ router.delete('/:id', deleteBooking);
 router.put('/:id', updateBookingStatus);
 router.get('/user/:email', getBookingsForUser);
 
-module.exports = router;
+module.exports = router; 

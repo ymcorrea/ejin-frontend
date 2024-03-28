@@ -11,7 +11,7 @@ exports.getAllPackageCtlr = AsyncHandler(async (req, res) => {
   const db = getDb();
   const packages = await db.collection("resort").find({}).toArray();
 
-  res.status(200).json({
+  res.status(200).json({ 
     status: "Success",
     data: packages,
     message: "Get Packages successfully!"

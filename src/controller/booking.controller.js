@@ -6,7 +6,7 @@ exports.getAllBookings = async (req, res) => {
   const booking = await db.collection('book').find({}).toArray();
   res.send(booking);
 };
-
+ 
 exports.postBooking = async (req, res) => {
   const db = getDb();
   const user = req.body;

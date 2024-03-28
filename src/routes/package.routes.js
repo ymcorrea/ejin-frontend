@@ -12,4 +12,4 @@ router.get('/:id', getSinglePackageCtlr);
 // Add new Package API Post 
 router.post('/', createPackageCtlr);
 
-module.exports = router;
+module.exports = router; 
